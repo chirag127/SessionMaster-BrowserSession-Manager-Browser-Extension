@@ -1,0 +1,92 @@
+name: CI
+
+# Controls when the workflow will run
+# Triggers the workflow on push or pull request events
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-and-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # This matrix will run the job for Node.js 18 and 20
+        node-version: [18.x, 20.x]
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Run Linter and Formatter (Biome)
+        run: npx @biomejs/biome check --apply
+
+      - name: Run Unit Tests (Vitest)
+        run: npm test
+
+      # This step assumes you have a coverage reporter configured in your Vitest setup
+      # and that Codecov is set up to receive reports.
+      # Replace 'your-codecov-token' with a GitHub secret if needed for private repos.
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+
+      # For Browser Extensions, E2E testing is more complex.
+      # This is a placeholder. Real E2E testing might involve Playwright or similar
+      # within a controlled browser environment or on a dedicated VM.
+      - name: Placeholder for E2E Tests (e.g., Playwright)
+        run: echo "E2E tests would run here."
+        # Example if Playwright was fully integrated:
+        # npm install -g playwright
+        # npx playwright install
+        # npm run test:e2e
+
+      - name: Build Artifact
+        run: npm run build
+        # This assumes your build script creates a distributable artifact.
+        # For browser extensions, this might be a zip file or a set of unpacked files.
+        # You might want to archive this artifact for later deployment.
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-extension-build
+          path: dist/ # Adjust path to your actual build output directory
+          retention-days: 7
+
+      # Example for deploying to Chrome Web Store (requires setup)
+      # - name: Deploy to Chrome Web Store
+      #   uses: fvch/chrome-webstore-upload@v1
+      #   with:
+      #     version: "${{ github.ref_name }}" # Or a version number from package.json
+      #     extId: "${{ secrets.CHROME_EXTENSION_ID }}"
+      #     clientId: "${{ secrets.CHROME_CLIENT_ID }}"
+      #     clientSecret: "${{ secrets.CHROME_CLIENT_SECRET }}"
+      #     refreshToken: "${{ secrets.CHROME_REFRESH_TOKEN }}"
+      #     zip: "dist.zip" # Assumes you created a zip file previously
+      #   if: github.ref == 'refs/heads/main' # Only deploy from main branch
+
+      # Example for deploying to Firefox Add-ons (requires setup)
+      # - name: Deploy to Firefox Add-ons
+      #   uses:- fvch/firefox-addon-deployer@v1
+      #   with:
+      #     addon_key: "${{ secrets.FIREFOX_ADDON_KEY }}"
+      #     # ... other firefox specific secrets and options
+      #   if: github.ref == 'refs/heads/main' # Only deploy from main branch
