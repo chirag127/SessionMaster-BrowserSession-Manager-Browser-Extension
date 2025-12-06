@@ -1,0 +1,28 @@
+badges:
+  - name: Build Status
+    url: https://img.shields.io/github/actions/workflow/status/chirag127/SessionSwitch-Multi-Account-Browser-Extension/ci.yml?style=flat-square&logo=github
+    markdown: "[![Build Status](https://img.shields.io/github/actions/workflow/status/chirag127/SessionSwitch-Multi-Account-Browser-Extension/ci.yml?style=flat-square&logo=github)](https://github.com/chirag127/SessionSwitch-Multi-Account-Browser-Extension/actions/workflows/ci.yml)"
+
+  - name: License
+    url: https://img.shields.io/github/license/chirag127/SessionSwitch-Multi-Account-Browser-Extension?style=flat-square
+    markdown: "[![License](https://img.shields.io/github/license/chirag127/SessionSwitch-Multi-Account-Browser-Extension?style=flat-square)](LICENSE)"
+
+  - name: GitHub Stars
+    url: https://img.shields.io/github/stars/chirag127/SessionSwitch-Multi-Account-Browser-Extension?style=flat-square&logo=github
+    markdown: "[![GitHub Stars](https://img.shields.io/github/stars/chirag127/SessionSwitch-Multi-Account-Browser-Extension?style=flat-square&logo=github)](https://github.com/chirag127/SessionSwitch-Multi-Account-Browser-Extension)"
+
+  - name: Language
+    url: https://img.shields.io/github/languages/top/chirag127/SessionSwitch-Multi-Account-Browser-Extension?style=flat-square&color=a1b7e3
+    markdown: "[![Language](https://img.shields.io/github/languages/top/chirag127/SessionSwitch-Multi-Account-Browser-Extension?style=flat-square&color=a1b7e3)](https://github.com/chirag127/SessionSwitch-Multi-Account-Browser-Extension)"
+
+  - name: Issues Open
+    url: https://img.shields.io/github/issues-raw/chirag127/SessionSwitch-Multi-Account-Browser-Extension?style=flat-square&color=red
+    markdown: "[![Issues Open](https://img.shields.io/github/issues-raw/chirag127/SessionSwitch-Multi-Account-Browser-Extension?style=flat-square&color=red)](https://github.com/chirag127/SessionSwitch-Multi-Account-Browser-Extension/issues)"
+
+  - name: Code Coverage (Placeholder)
+    url: https://img.shields.io/badge/Coverage-N%2FA-lightgrey?style=flat-square
+    markdown: "[![Code Coverage](https://img.shields.io/badge/Coverage-N%2FA-lightgrey?style=flat-square)](https://codecov.io/gh/chirag127/SessionSwitch-Multi-Account-Browser-Extension)"
+
+  - name: Linter Status (Placeholder)
+    url: https://img.shields.io/badge/Linter-ESLint%2FBiome-blue?style=flat-square
+    markdown: "[![Linter Status](https://img.shields.io/badge/Linter-ESLint%2FBiome-blue?style=flat-square)]()"
